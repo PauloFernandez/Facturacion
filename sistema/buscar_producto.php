@@ -3,6 +3,12 @@
 session_start();
 
 include_once '../conexion.php';
+
+if ( (isset($_REQUEST['busqueda']) && $_REQUEST['busqueda'] == '') || ( isset($_REQUEST['proveedor']) && $_REQUEST['proveedor'] == '' ) ) {
+      header("Location: lista_productos.php");
+      mysqli_close($conection);
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,9 +25,7 @@ include_once '../conexion.php';
     <?php
     $busqueda = '';
     $search_proveedor = '';
-    if (empty($_REQUEST['busqueda']) && empty($_REQUEST['proveedor'])) {
-      header("Location: lista_productos.php");
-    }
+
     if (!empty($_REQUEST['busqueda'])) {
       $busqueda = strtolower($_REQUEST['busqueda']);
       $where = "(p.codproducto LIKE '%$busqueda%' OR p.descripcion LIKE '%$busqueda%') AND p.estatus = 1";

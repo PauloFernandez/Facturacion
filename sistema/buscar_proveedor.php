@@ -1,6 +1,12 @@
 <?php
 session_start();
 include_once '../conexion.php';
+
+    if (isset($_REQUEST['busqueda']) && $_REQUEST['busqueda'] == '' ) {
+      header("Location: lista_proveedor.php");
+      mysqli_close($conection);
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -9,17 +15,13 @@ include_once '../conexion.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <?php include_once 'includes/scripts.php'; ?>
-  <title>Lista de Cliente</title>
+  <title>Lista de Proveedor</title>
 </head>
 <body>
   <?php include_once 'includes/header.php'; ?>
   <section id="container">
     <?php
     $busqueda = strtolower(($_REQUEST['busqueda']));
-    if (empty($busqueda)) {
-      header("Location: lista_proveedor.php");
-      mysqli_close($conection);
-    }
     ?>
     <h1><i class="fa-solid fa-clipboard-list"></i> Lista de Provedores</h1>
 

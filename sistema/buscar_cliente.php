@@ -3,6 +3,10 @@
 session_start();
 
 include_once '../conexion.php';
+if ( isset($_REQUEST['busqueda']) && $_REQUEST['busqueda'] == '' ) {
+  header("Location: lista_clientes.php");
+  mysqli_close($conection);
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,10 +23,6 @@ include_once '../conexion.php';
     <?php
 // este comando (strtolower) nos sirve para indicar que todo se convierta en minusculas
     $busqueda = strtolower(($_REQUEST['busqueda']));
-    if (empty($busqueda)) {
-      header("Location: lista_clientes.php");
-      mysqli_close($conection);
-    }
     ?>
     <h1><i class="fa-solid fa-users"></i> Lista de Clientes</h1>
 
